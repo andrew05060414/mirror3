@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.mirror3.daily</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>-lc</string>
+    <string>python3 /Users/andrewwang/Code/Mirror3/mirror3.py apply --tools npm,pnpm,yarn,bun,pip,uv,go,cargo,rustup,gradle,maven,nuget,gem,composer,docker --timeout 4</string>
+  </array>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>9</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/andrewwang/Code/Mirror3/.mirror3/launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/andrewwang/Code/Mirror3/.mirror3/launchd.err</string>
+</dict>
+</plist>

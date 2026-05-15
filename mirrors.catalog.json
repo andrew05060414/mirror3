@@ -1,0 +1,440 @@
+{
+  "version": 2,
+  "notes": "Mirror definitions for Mirror3. Add or remove tools safely by editing this file.",
+  "tools": {
+    "npm": {
+      "config_path": {
+        "macos": "~/.npmrc",
+        "linux": "~/.npmrc",
+        "windows": "%USERPROFILE%/.npmrc"
+      },
+      "format": "line_kv",
+      "key": "registry",
+      "test_path": "/-/ping",
+      "mirrors": [
+        {
+          "name": "npmmirror",
+          "url": "https://registry.npmmirror.com"
+        },
+        {
+          "name": "tencent-npm",
+          "url": "https://mirrors.cloud.tencent.com/npm"
+        },
+        {
+          "name": "huawei-npm",
+          "url": "https://mirrors.huaweicloud.com/repository/npm"
+        },
+        {
+          "name": "npmjs",
+          "url": "https://registry.npmjs.org"
+        }
+      ]
+    },
+    "pnpm": {
+      "config_path": {
+        "macos": "~/.npmrc",
+        "linux": "~/.npmrc",
+        "windows": "%USERPROFILE%/.npmrc"
+      },
+      "format": "line_kv",
+      "key": "registry",
+      "test_path": "/-/ping",
+      "mirrors": [
+        {
+          "name": "npmmirror",
+          "url": "https://registry.npmmirror.com"
+        },
+        {
+          "name": "tencent-npm",
+          "url": "https://mirrors.cloud.tencent.com/npm"
+        },
+        {
+          "name": "huawei-npm",
+          "url": "https://mirrors.huaweicloud.com/repository/npm"
+        },
+        {
+          "name": "npmjs",
+          "url": "https://registry.npmjs.org"
+        }
+      ]
+    },
+    "yarn": {
+      "config_path": {
+        "macos": "~/.npmrc",
+        "linux": "~/.npmrc",
+        "windows": "%USERPROFILE%/.npmrc"
+      },
+      "format": "line_kv",
+      "key": "registry",
+      "test_path": "/-/ping",
+      "mirrors": [
+        {
+          "name": "npmmirror",
+          "url": "https://registry.npmmirror.com"
+        },
+        {
+          "name": "tencent-npm",
+          "url": "https://mirrors.cloud.tencent.com/npm"
+        },
+        {
+          "name": "huawei-npm",
+          "url": "https://mirrors.huaweicloud.com/repository/npm"
+        },
+        {
+          "name": "npmjs",
+          "url": "https://registry.npmjs.org"
+        }
+      ]
+    },
+    "bun": {
+      "config_path": {
+        "macos": "~/.bunfig.toml",
+        "linux": "~/.bunfig.toml",
+        "windows": "%USERPROFILE%/.bunfig.toml"
+      },
+      "format": "toml_bun",
+      "test_path": "/-/ping",
+      "mirrors": [
+        {
+          "name": "npmmirror",
+          "url": "https://registry.npmmirror.com"
+        },
+        {
+          "name": "tencent-npm",
+          "url": "https://mirrors.cloud.tencent.com/npm"
+        },
+        {
+          "name": "huawei-npm",
+          "url": "https://mirrors.huaweicloud.com/repository/npm"
+        },
+        {
+          "name": "npmjs",
+          "url": "https://registry.npmjs.org"
+        }
+      ]
+    },
+    "pip": {
+      "config_path": {
+        "macos": "~/.config/pip/pip.conf",
+        "linux": "~/.config/pip/pip.conf",
+        "windows": "%APPDATA%/pip/pip.ini"
+      },
+      "format": "ini_global",
+      "key": "index-url",
+      "test_path": "/simple/",
+      "mirrors": [
+        {
+          "name": "tuna",
+          "url": "https://pypi.tuna.tsinghua.edu.cn/simple"
+        },
+        {
+          "name": "aliyun",
+          "url": "https://mirrors.aliyun.com/pypi/simple"
+        },
+        {
+          "name": "tencent-pypi",
+          "url": "https://mirrors.cloud.tencent.com/pypi/simple"
+        },
+        {
+          "name": "huawei-pypi",
+          "url": "https://mirrors.huaweicloud.com/repository/pypi/simple"
+        },
+        {
+          "name": "ustc-pypi",
+          "url": "https://pypi.mirrors.ustc.edu.cn/simple"
+        },
+        {
+          "name": "pypi",
+          "url": "https://pypi.org/simple"
+        }
+      ]
+    },
+    "uv": {
+      "config_path": {
+        "macos": "~/.config/uv/uv.toml",
+        "linux": "~/.config/uv/uv.toml",
+        "windows": "%APPDATA%/uv/uv.toml"
+      },
+      "format": "toml_uv",
+      "test_path": "/simple/",
+      "mirrors": [
+        {
+          "name": "tuna",
+          "url": "https://pypi.tuna.tsinghua.edu.cn/simple/"
+        },
+        {
+          "name": "aliyun",
+          "url": "https://mirrors.aliyun.com/pypi/simple/"
+        },
+        {
+          "name": "tencent-pypi",
+          "url": "https://mirrors.cloud.tencent.com/pypi/simple/"
+        },
+        {
+          "name": "huawei-pypi",
+          "url": "https://mirrors.huaweicloud.com/repository/pypi/simple/"
+        },
+        {
+          "name": "ustc-pypi",
+          "url": "https://pypi.mirrors.ustc.edu.cn/simple/"
+        },
+        {
+          "name": "pypi",
+          "url": "https://pypi.org/simple/"
+        }
+      ]
+    },
+    "go": {
+      "config_path": {
+        "macos": "~/Library/Application Support/go/env",
+        "linux": "~/.config/go/env",
+        "windows": "%APPDATA%/go/env"
+      },
+      "format": "line_kv",
+      "key": "GOPROXY",
+      "test_path": "/github.com/gin-gonic/gin/@v/list",
+      "mirrors": [
+        {
+          "name": "goproxy-cn",
+          "url": "https://goproxy.cn,direct"
+        },
+        {
+          "name": "goproxy-io",
+          "url": "https://goproxy.io,direct"
+        },
+        {
+          "name": "goproxy-comcn",
+          "url": "https://proxy.golang.com.cn,direct"
+        },
+        {
+          "name": "go-direct",
+          "url": "https://proxy.golang.org,direct"
+        }
+      ]
+    },
+    "cargo": {
+      "config_path": {
+        "macos": "~/.cargo/config.toml",
+        "linux": "~/.cargo/config.toml",
+        "windows": "%USERPROFILE%/.cargo/config.toml"
+      },
+      "format": "toml_cargo",
+      "test_path": "/config.json",
+      "mirrors": [
+        {
+          "name": "rsproxy",
+          "url": "sparse+https://rsproxy.cn/index/"
+        },
+        {
+          "name": "ustc-cargo",
+          "url": "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
+        },
+        {
+          "name": "crates-io",
+          "url": "sparse+https://index.crates.io/"
+        }
+      ]
+    },
+    "rustup": {
+      "config_path": {
+        "macos": "~/.zshrc",
+        "linux": "~/.bashrc",
+        "windows": ""
+      },
+      "format": "rustup_env",
+      "test_path": "/dist/channel-rust-stable.toml",
+      "mirrors": [
+        {
+          "name": "rsproxy",
+          "url": "https://rsproxy.cn"
+        },
+        {
+          "name": "ustc-rust",
+          "url": "https://mirrors.ustc.edu.cn/rust-static"
+        },
+        {
+          "name": "rust-lang",
+          "url": "https://static.rust-lang.org"
+        }
+      ]
+    },
+    "homebrew": {
+      "config_path": {
+        "macos": "~/.zshrc",
+        "linux": "~/.bashrc",
+        "windows": ""
+      },
+      "format": "env_line",
+      "key": "HOMEBREW_BOTTLE_DOMAIN",
+      "test_path": "/",
+      "mirrors": [
+        {
+          "name": "ustc-bottles",
+          "url": "https://mirrors.ustc.edu.cn/homebrew-bottles/bottles"
+        },
+        {
+          "name": "brew-default",
+          "url": "https://ghcr.io/v2/homebrew/core"
+        }
+      ]
+    },
+    "maven": {
+      "config_path": {
+        "macos": "~/.m2/settings.xml",
+        "linux": "~/.m2/settings.xml",
+        "windows": "%USERPROFILE%/.m2/settings.xml"
+      },
+      "format": "maven_settings",
+      "test_path": "/",
+      "mirrors": [
+        {
+          "name": "aliyun-central",
+          "url": "https://maven.aliyun.com/repository/central"
+        },
+        {
+          "name": "tencent-public",
+          "url": "https://mirrors.cloud.tencent.com/nexus/repository/maven-public"
+        },
+        {
+          "name": "huawei-maven",
+          "url": "https://repo.huaweicloud.com/repository/maven"
+        },
+        {
+          "name": "maven-central",
+          "url": "https://repo1.maven.org/maven2"
+        }
+      ]
+    },
+    "gradle": {
+      "config_path": {
+        "macos": "~/.gradle/init.gradle",
+        "linux": "~/.gradle/init.gradle",
+        "windows": "%USERPROFILE%/.gradle/init.gradle"
+      },
+      "format": "gradle_init",
+      "test_path": "/",
+      "mirrors": [
+        {
+          "name": "aliyun-public",
+          "url": "https://maven.aliyun.com/repository/public"
+        },
+        {
+          "name": "tencent-public",
+          "url": "https://mirrors.cloud.tencent.com/nexus/repository/maven-public"
+        },
+        {
+          "name": "huawei-maven",
+          "url": "https://repo.huaweicloud.com/repository/maven"
+        },
+        {
+          "name": "maven-central",
+          "url": "https://repo1.maven.org/maven2"
+        }
+      ]
+    },
+    "nuget": {
+      "config_path": {
+        "macos": "~/.nuget/NuGet/NuGet.Config",
+        "linux": "~/.nuget/NuGet/NuGet.Config",
+        "windows": "%APPDATA%/NuGet/NuGet.Config"
+      },
+      "format": "nuget_config",
+      "test_path": "/v3/index.json",
+      "mirrors": [
+        {
+          "name": "nuget-default",
+          "url": "https://api.nuget.org/v3/index.json"
+        },
+        {
+          "name": "huawei",
+          "url": "https://repo.huaweicloud.com/repository/nuget/v3/index.json"
+        },
+        {
+          "name": "tencent-nuget",
+          "url": "https://mirrors.cloud.tencent.com/nuget/v3/index.json"
+        },
+        {
+          "name": "tuna-nuget",
+          "url": "https://mirrors.tuna.tsinghua.edu.cn/nuget/v3/index.json"
+        },
+        {
+          "name": "azurecn-nuget",
+          "url": "https://nuget.cdn.azure.cn/v3/index.json"
+        }
+      ]
+    },
+    "gem": {
+      "config_path": {
+        "macos": "~/.gemrc",
+        "linux": "~/.gemrc",
+        "windows": "%USERPROFILE%/.gemrc"
+      },
+      "format": "gemrc",
+      "test_path": "/specs.4.8.gz",
+      "mirrors": [
+        {
+          "name": "rubygems-default",
+          "url": "https://rubygems.org"
+        },
+        {
+          "name": "rubygems-china",
+          "url": "https://gems.ruby-china.com"
+        }
+      ]
+    },
+    "composer": {
+      "config_path": {
+        "macos": "~/.config/composer/config.json",
+        "linux": "~/.config/composer/config.json",
+        "windows": "%APPDATA%/Composer/config.json"
+      },
+      "format": "composer_config",
+      "test_path": "/packages.json",
+      "mirrors": [
+        {
+          "name": "packagist-default",
+          "url": "https://repo.packagist.org"
+        },
+        {
+          "name": "aliyun-composer",
+          "url": "https://mirrors.aliyun.com/composer"
+        },
+        {
+          "name": "phpcomposer-mirror",
+          "url": "https://packagist.phpcomposer.com"
+        }
+      ]
+    },
+    "docker": {
+      "config_path": {
+        "macos": "~/.docker/daemon.json",
+        "linux": "/etc/docker/daemon.json",
+        "windows": "%USERPROFILE%/.docker/daemon.json"
+      },
+      "format": "docker_daemon",
+      "test_path": "/v2/",
+      "mirrors": [
+        {
+          "name": "daocloud",
+          "url": "https://docker.m.daocloud.io"
+        },
+        {
+          "name": "netease",
+          "url": "https://hub-mirror.c.163.com"
+        },
+        {
+          "name": "ustc",
+          "url": "https://docker.mirrors.ustc.edu.cn"
+        },
+        {
+          "name": "tencent-docker",
+          "url": "https://mirror.ccs.tencentyun.com"
+        },
+        {
+          "name": "qiniu-docker",
+          "url": "https://reg-mirror.qiniu.com"
+        }
+      ]
+    }
+  }
+}
