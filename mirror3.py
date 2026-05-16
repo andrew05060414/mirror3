@@ -46,6 +46,26 @@ def _platform() -> str:
     return "linux"
 
 
+def _is_wsl() -> bool:
+    if os.environ.get("WSL_DISTRO_NAME"):
+        return True
+    try:
+        return "microsoft" in Path("/proc/version").read_text(encoding="utf-8").lower()
+    except OSError:
+        return False
+
+
+def _path_parent_writable(path: Path) -> bool:
+    parent = path.parent
+    for _ in range(32):
+        if parent.exists():
+            return os.access(parent, os.W_OK)
+        if parent == parent.parent:
+            break
+        parent = parent.parent
+    return False
+
+
 def _home() -> Path:
     return Path.home()
 
@@ -191,7 +211,24 @@ def parse_tools(arg_tools: Optional[str], catalog: Dict) -> List[str]:
 
 def _tool_path_expr(tool_cfg: Dict, os_name: str) -> Optional[str]:
     path_map = tool_cfg.get("config_path", {})
+    if _is_wsl():
+        wsl_expr = path_map.get("wsl")
+        if wsl_expr:
+            return wsl_expr
     return path_map.get(os_name)
+
+
+def resolve_config_path(tool: str, tool_cfg: Dict, os_name: str) -> Optional[Path]:
+    expr = _tool_path_expr(tool_cfg, os_name)
+    if not expr:
+        return None
+    path = expand_path(expr)
+    if tool == "docker" and os_name == "linux":
+        path_map = tool_cfg.get("config_path", {})
+        user_expr = path_map.get("wsl") or "~/.docker/daemon.json"
+        if _is_wsl() or (str(path).startswith("/etc/") and not _path_parent_writable(path)):
+            path = expand_path(user_expr)
+    return path
 
 
 def _tool_test_path(tool_cfg: Dict) -> str:
@@ -217,8 +254,14 @@ def _read_if_exists(path: Path) -> str:
 
 
 def _write_text(path: Path, content: str) -> None:
-    _ensure_parent(path)
-    path.write_text(content, encoding="utf-8")
+    try:
+        _ensure_parent(path)
+    except OSError as e:
+        raise OSError(f"cannot create parent directory for {path}: {e}") from e
+    try:
+        path.write_text(content, encoding="utf-8")
+    except OSError as e:
+        raise OSError(f"cannot write {path}: {e}") from e
 
 
 def _render_config(tool: str, tool_cfg: Dict, mirror_url: str) -> str:
@@ -482,14 +525,13 @@ def list_tools_cmd(catalog: Dict) -> int:
 
 def status_cmd(project_root: Path, catalog: Dict, tools: List[str]) -> int:
     os_name = _platform()
-    print(f"Platform: {os_name}")
+    print(f"Platform: {os_name}" + (" (WSL)" if _is_wsl() else ""))
     for tool in tools:
         cfg = catalog["tools"][tool]
-        expr = _tool_path_expr(cfg, os_name)
-        if not expr:
+        p = resolve_config_path(tool, cfg, os_name)
+        if p is None:
             print(f"[{tool}] not supported on {os_name}")
             continue
-        p = expand_path(expr)
         content = _read_if_exists(p)
         current = _extract_current(tool, cfg, content)
         exists = "yes" if p.exists() else "no"
@@ -625,13 +667,13 @@ def apply_cmd(
 ) -> int:
     os_name = _platform()
     disabled_map = load_disabled(project_root)
+    docker_applied_user_path = False
     for tool in tools:
         cfg = catalog["tools"][tool]
-        expr = _tool_path_expr(cfg, os_name)
-        if not expr:
+        path = resolve_config_path(tool, cfg, os_name)
+        if path is None:
             print(f"[{tool}] skipped: not supported on {os_name}")
             continue
-        path = expand_path(expr)
         prefer = prefer_map.get(tool)
         try:
             mirror_name, mirror_url = _pick_mirror(tool, cfg, prefer, timeout, disabled_map)
@@ -643,14 +685,24 @@ def apply_cmd(
         if dry_run:
             print(f"[{tool}] DRY-RUN path={path} mirror={mirror_name} url={mirror_url}")
             continue
-        snap = _save_backup(project_root, tool, path, old_content)
-        _write_text(path, new_content)
+        try:
+            snap = _save_backup(project_root, tool, path, old_content)
+            _write_text(path, new_content)
+        except OSError as e:
+            print(f"[{tool}] failed: {e}")
+            continue
         print(f"[{tool}] applied mirror={mirror_name} path={path} backup={snap}")
+        if tool == "docker":
+            try:
+                path.resolve().relative_to(_home().resolve())
+                docker_applied_user_path = True
+            except ValueError:
+                pass
 
-    if _platform() == "macos":
-        docker_path = expand_path(catalog["tools"]["docker"]["config_path"]["macos"])
-        if docker_path.exists() and "docker" in tools:
-            print("[docker] if Docker Desktop is running, restart Docker to take effect.")
+    if "docker" in tools and (
+        _platform() in ("macos", "windows") or docker_applied_user_path or _is_wsl()
+    ):
+        print("[docker] if Docker Desktop is running, restart Docker to take effect.")
     return 0
 
 
