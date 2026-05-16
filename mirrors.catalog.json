@@ -409,6 +409,7 @@
       "config_path": {
         "macos": "~/.docker/daemon.json",
         "linux": "/etc/docker/daemon.json",
+        "wsl": "~/.docker/daemon.json",
         "windows": "%USERPROFILE%/.docker/daemon.json"
       },
       "format": "docker_daemon",
